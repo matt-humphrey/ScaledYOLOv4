@@ -11,7 +11,7 @@ app = Flask(__name__)
 RESULT_FOLDER = os.path.join('static')
 app.config['RESULT_FOLDER'] = RESULT_FOLDER
 
-model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True).autoshape()  # for PIL/cv2/np inputs and NMS
+model = torch.hub.load('matt-humphrey/ScaledYOLOv4', 'yolov4-large', pretrained=True).autoshape()  # for PIL/cv2/np inputs and NMS
 model.eval()
 
 def get_prediction(img_bytes):
@@ -19,7 +19,7 @@ def get_prediction(img_bytes):
     imgs = [img]  # batched list of images
 
 # Inference
-    results = model(imgs, size=640)  # includes NMS
+    results = model(imgs, size=480)  # includes NMS
     return results
 
 @app.route('/', methods=['GET', 'POST'])
